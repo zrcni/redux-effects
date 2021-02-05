@@ -1,4 +1,5 @@
-import { AnyAction } from "redux"
+import { Action, AnyAction } from "redux"
+import { ReduxEffect } from "./lib/redux-effects/types"
 
 export interface AnalyticsClient {
   click(element: HTMLElement): void
@@ -14,3 +15,9 @@ export interface EffectContext<S = {}> extends EffectContextArgument {
 }
 
 export interface ReduxState {}
+
+export type MyReduxEffect<A extends Action = AnyAction> = ReduxEffect<
+  ReduxState,
+  A,
+  EffectContext
+>
