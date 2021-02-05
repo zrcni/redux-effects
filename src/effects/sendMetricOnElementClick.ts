@@ -1,10 +1,11 @@
 import { createReduxEffect } from "../lib/redux-effects"
 import { elementClicked, ElementClickedAction } from "../redux/actions"
-import { EffectContext } from "../types"
+import { EffectContext, ReduxState } from "../types"
 
-export default createReduxEffect(
-  elementClicked.type,
-  (action: ElementClickedAction, context: EffectContext) => {
-    context.analyticsClient.click(action.payload.element)
-  }
-)
+export default createReduxEffect<
+  ReduxState,
+  ElementClickedAction,
+  EffectContext
+>(elementClicked.type, (action, context) => {
+  context.analyticsClient.click(action.payload.element)
+})

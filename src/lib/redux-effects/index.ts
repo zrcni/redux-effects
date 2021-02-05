@@ -1,7 +1,10 @@
 import { createEnhancer } from "./enhancer"
 
-export function createReduxEffectEnhancer<C = object>(context?: C) {
-  return createEnhancer(context || {})
+export function createReduxEffectEnhancer<
+  S = {},
+  C extends Record<string, any> = {}
+>(context?: C) {
+  return createEnhancer<S, C>(context || {} as any)
 }
 
 export { createReduxEffect } from "./utils"

@@ -1,4 +1,4 @@
-import { Action } from "redux"
+import { AnyAction } from "redux"
 
 export interface AnalyticsClient {
   click(element: HTMLElement): void
@@ -8,10 +8,9 @@ export interface EffectContextArgument {
   analyticsClient: AnalyticsClient
 }
 
-export interface EffectContext<A = Action, S = {}>
-  extends EffectContextArgument {
+export interface EffectContext<S = {}> extends EffectContextArgument {
   getState(): S
-  dispatch(action: A): void
+  dispatch(action: AnyAction): void
 }
 
 export interface ReduxState {}

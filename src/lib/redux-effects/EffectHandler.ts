@@ -1,15 +1,19 @@
 import { nanoid } from "nanoid"
-import { AnyAction, Store } from "redux"
-import { ReduxEffect, ReduxEffectCallback } from "./types"
+import { Action, AnyAction, Store } from "redux"
+import { ReduxEffect, ReduxEffectCallback, ReduxEffectContext } from "./types"
 import { createReduxEffect } from "./utils"
 
 const effectMap: EffectMap = {}
 
-export function registerReduxEffect<A = AnyAction, C = object>(
-  actionTypeOrEffect: string | ReduxEffect<A, C>,
-  callback?: ReduxEffectCallback<A, C>
+export function registerReduxEffect<
+  S = {},
+  A extends Action = AnyAction,
+  C extends Record<string, any> = {}
+>(
+  actionTypeOrEffect: string | ReduxEffect<S, A, C>,
+  callback?: ReduxEffectCallback<S, A, C>
 ) {
-  const effect = createReduxEffect<A, C>(actionTypeOrEffect, callback)
+  const effect = createReduxEffect<S, A, C>(actionTypeOrEffect, callback)
 
   if (!effectMap[effect.type]) {
     effectMap[effect.type] = {}
@@ -23,13 +27,13 @@ export function registerReduxEffect<A = AnyAction, C = object>(
   }
 }
 
-export class EffectHandler<C = object> {
-  private store: Store
+export class EffectHandler<S = {}, C extends Record<string, any> = {}> {
+  private store: Store<S>
   private context: C
 
   register = registerReduxEffect
 
-  constructor(store: Store, context: C) {
+  constructor(store: Store<S>, context: C) {
     this.store = store
     this.context = context
   }
@@ -38,7 +42,12 @@ export class EffectHandler<C = object> {
     if (!effectMap[action.type]) return
 
     for (const id in effectMap[action.type]) {
-      const callback = effectMap[action.type][id]
+      const callback: ReduxEffectCallback<
+        S,
+        AnyAction,
+        C & ReduxEffectContext<S>
+      > = effectMap[action.type][id]
+
       callback(action, {
         ...this.context,
         getState: this.store.getState,
