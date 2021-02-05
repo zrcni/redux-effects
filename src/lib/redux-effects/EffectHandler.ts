@@ -1,32 +1,47 @@
-import EventEmitter from "eventemitter3"
+import { nanoid } from "nanoid"
 import { Action, Store } from "redux"
-import { ReduxEffect } from "./types"
+import { ReduxEffect, ReduxEffectCallback } from "./types"
 
 export class EffectHandler<C = object> {
-  private eventEmitter: EventEmitter
+  private effectMap: EffectMap = {}
   private store: Store
   private context: C
 
   constructor(store: Store, context: C) {
     this.store = store
     this.context = context
-    this.eventEmitter = new EventEmitter()
   }
 
   register = (effect: ReduxEffect<C>) => {
-    const eventEmitter = this.eventEmitter
-    eventEmitter.on(effect.type, effect.callback)
+    const effectMap = this.effectMap
+
+    if (!effectMap[effect.type]) {
+      effectMap[effect.type] = {}
+    }
+
+    const id = nanoid()
+    effectMap[effect.type][id] = effect.callback
 
     return function unregister() {
-      eventEmitter.off(effect.type, effect.callback)
+      delete effectMap[effect.type][id]
     }
   }
 
-  emit = (action: Action) => {
-    this.eventEmitter.emit(action.type, action, {
-      ...this.context,
-      getState: this.store.getState,
-      dispatch: this.store.dispatch,
-    })
+  invoke = (action: Action) => {
+    if (!this.effectMap[action.type]) return
+    for (const id in this.effectMap[action.type]) {
+      const callback = this.effectMap[action.type][id]
+      callback(action, {
+        ...this.context,
+        getState: this.store.getState,
+        dispatch: this.store.dispatch,
+      })
+    }
+  }
+}
+
+interface EffectMap {
+  [type: string]: {
+    [id: string]: ReduxEffectCallback
   }
 }

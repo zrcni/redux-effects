@@ -14,7 +14,7 @@ export function createEnhancer<C = object>(
       store.dispatch(action)
 
       if (isValidAction(action)) {
-        effectHandler.emit(action)
+        effectHandler.invoke(action)
       }
     }
 
