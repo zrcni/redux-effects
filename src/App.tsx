@@ -7,28 +7,18 @@ import { elementClicked } from "./redux/actions"
 function App() {
   const dispatch = useDispatch()
 
+  function onClick(e: any) {
+    dispatch(elementClicked(e.currentTarget))
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p
-          id="instruction"
-          onClick={(e) => dispatch(elementClicked(e.currentTarget))}
-        >
-          Edit <code>src/App.tsx</code> and save to reload.
+        <p id="instruction" onClick={onClick}>
+          Clicking some elements prints something in the console.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <button
-          id="the-only-button"
-          onClick={(e) => dispatch(elementClicked(e.currentTarget))}
-        >
+        <button id="the-only-button" onClick={onClick}>
           Click me
         </button>
       </header>
