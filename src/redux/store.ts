@@ -1,12 +1,18 @@
-import { createStore as createReduxStore } from "redux"
+import { createStore as createReduxStore, compose } from "redux"
 import createReduxEffectEnhancer from "../lib/redux-effects"
-import { EffectContextArgument } from "../types"
+import { EffectContextArgument, ReduxState } from "../types"
 import { createReducer } from "./reducer"
 
-export function createStore(initialState = {}, context: EffectContextArgument) {
+export function createStore(
+  initialState: ReduxState | undefined,
+  context: EffectContextArgument
+) {
+  const _compose: typeof compose =
+    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
   return createReduxStore(
     createReducer(),
     initialState,
-    createReduxEffectEnhancer(context)
+    _compose(createReduxEffectEnhancer(context))
   )
 }
