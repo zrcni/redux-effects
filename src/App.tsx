@@ -3,10 +3,8 @@ import logo from "./logo.svg"
 import "./App.css"
 import { useDispatch } from "react-redux"
 import { elementClicked } from "./redux/actions"
-import { useGlobalEffects } from "./effects"
 
 function App() {
-  useGlobalEffects()
   const dispatch = useDispatch()
 
   return (
