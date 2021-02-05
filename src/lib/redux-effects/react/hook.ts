@@ -4,8 +4,8 @@ import {
   ReduxEffect,
   ReduxEffectCallback,
   StoreWithEventEnhancer,
-} from "./types"
-import { createReduxEffect } from "./utils"
+} from "../types"
+import { createReduxEffect } from "../utils"
 
 export function useReduxEffect(
   actionTypeOrEffect: string | ReduxEffect,

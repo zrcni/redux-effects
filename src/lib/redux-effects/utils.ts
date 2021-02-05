@@ -57,9 +57,3 @@ function isEffect(effect?: any) {
     typeof effect.callback === "function"
   )
 }
-
-export function getComponentDisplayName(WrappedComponent: any): string {
-  return (
-    WrappedComponent.displayName || WrappedComponent.name || "WrappedComponent"
-  )
-}

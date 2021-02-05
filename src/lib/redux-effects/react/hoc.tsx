@@ -1,6 +1,6 @@
 import { useReduxEffect } from "./hook"
-import { ReduxEffect, ReduxEffectCallback } from "./types"
-import { createReduxEffect, getComponentDisplayName } from "./utils"
+import { ReduxEffect, ReduxEffectCallback } from "../types"
+import { createReduxEffect } from "../utils"
 
 export function withReduxEffect(
   actionTypeOrEffect: string | ReduxEffect,
@@ -20,4 +20,10 @@ export function withReduxEffect(
 
     return HOC
   }
+}
+
+export function getComponentDisplayName(WrappedComponent: any): string {
+  return (
+    WrappedComponent.displayName || WrappedComponent.name || "WrappedComponent"
+  )
 }
