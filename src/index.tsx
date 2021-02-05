@@ -5,9 +5,10 @@ import { createStore } from "./redux"
 import App from "./App"
 import analyticsClient from "./analyticsClient"
 import "./index.css"
+import defaultState from "./redux/defaultState"
 import "./effects"
 
-const store = createStore({}, { analyticsClient })
+const store = createStore(defaultState, { analyticsClient })
 
 ReactDOM.render(
   <React.StrictMode>

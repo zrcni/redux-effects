@@ -14,7 +14,9 @@ export interface EffectContext<S = {}> extends EffectContextArgument {
   dispatch(action: AnyAction): void
 }
 
-export interface ReduxState {}
+export interface ReduxState {
+  inputText: string
+}
 
 export type MyReduxEffect<A extends Action = AnyAction> = ReduxEffect<
   ReduxState,

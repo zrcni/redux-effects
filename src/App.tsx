@@ -1,14 +1,16 @@
 import React from "react"
 import logo from "./logo.svg"
 import "./App.css"
-import { useDispatch } from "react-redux"
-import { elementClicked } from "./redux/actions"
+import { useDispatch, useSelector } from "react-redux"
+import { clickElement, updateInputText } from "./redux/actions"
+import { ReduxState } from "./types"
 
 function App() {
+  const inputText = useSelector<ReduxState, string>((store) => store.inputText)
   const dispatch = useDispatch()
 
   function onClick(e: any) {
-    dispatch(elementClicked(e.currentTarget))
+    dispatch(clickElement(e.currentTarget))
   }
 
   return (
@@ -18,6 +20,10 @@ function App() {
         <p id="instruction" onClick={onClick}>
           Clicking some elements prints something in the console.
         </p>
+        <input
+          value={inputText}
+          onChange={(e) => dispatch(updateInputText(e.currentTarget.value))}
+        />
         <button id="the-only-button" onClick={onClick}>
           Click me
         </button>
