@@ -1,9 +1,9 @@
 import { createStore as createReduxStore } from "redux"
 import createReduxEffectEnhancer from "../lib/redux-effects"
-import { EffectContext } from "../types"
+import { EffectContextArgument } from "../types"
 import { createReducer } from "./reducer"
 
-export function createStore(initialState = {}, context: EffectContext) {
+export function createStore(initialState = {}, context: EffectContextArgument) {
   return createReduxStore(
     createReducer(),
     initialState,
