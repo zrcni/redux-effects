@@ -1,4 +1,4 @@
-import { Action, StoreEnhancer } from "redux"
+import { AnyAction, StoreEnhancer } from "redux"
 import { EffectHandler } from "./EffectHandler"
 import { EventEnhancerStoreExt } from "./types"
 
@@ -10,7 +10,7 @@ export function createEnhancer<C = object>(
 
     const effectHandler = new EffectHandler(store, context)
 
-    function dispatch(action: Action) {
+    function dispatch(action: AnyAction) {
       store.dispatch(action)
 
       if (isValidAction(action)) {

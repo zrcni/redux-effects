@@ -1,14 +1,17 @@
-import { Action, Store } from "redux"
+import { AnyAction, Store } from "redux"
 
-export type ReduxEffectCallback<C = any> = (action: Action, context: C) => any
+export type ReduxEffectCallback<A = AnyAction, C = any> = (
+  action: A,
+  context: C
+) => any
 
-export interface ReduxEffect<C = object> {
+export interface ReduxEffect<A = AnyAction, C = object> {
   type: string
-  callback: ReduxEffectCallback<C>
+  callback: ReduxEffectCallback<A, C>
 }
 
 export interface EventEnhancerStoreExt<C = object> {
-  registerEffect(effect: ReduxEffect<C>): () => void
+  registerEffect(effect: ReduxEffect<AnyAction, C>): () => void
 }
 
 export interface StoreWithEventEnhancer<C = object>

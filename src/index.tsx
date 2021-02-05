@@ -5,11 +5,9 @@ import { createStore } from "./redux"
 import App from "./App"
 import analyticsClient from "./analyticsClient"
 import "./index.css"
-import { registerGlobalEffects } from "./effects"
+import "./effects"
 
 const store = createStore({}, { analyticsClient })
-
-registerGlobalEffects(store)
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,4 +1,6 @@
-export function elementClicked(element: HTMLElement) {
+import { Action } from "redux"
+
+export function elementClicked(element: HTMLElement): ElementClickedAction {
   return {
     type: "elementClicked",
     payload: { element },
@@ -7,7 +9,6 @@ export function elementClicked(element: HTMLElement) {
 
 elementClicked.type = "elementClicked"
 
-export interface ElementClickedAction {
-  type: "elementClicked"
+export interface ElementClickedAction extends Action<"elementClicked"> {
   payload: { element: HTMLElement }
 }

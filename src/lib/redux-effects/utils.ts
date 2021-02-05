@@ -1,9 +1,9 @@
 import { ReduxEffect } from "./types"
 
-export function createReduxEffect(
-  actionTypeOrEffect: string | ReduxEffect,
+export function createReduxEffect<A, C>(
+  actionTypeOrEffect: string | ReduxEffect<A, C>,
   callback: any
-): ReduxEffect {
+): ReduxEffect<A, C> {
   if (
     typeof actionTypeOrEffect === "object" &&
     typeof actionTypeOrEffect.callback === "function"

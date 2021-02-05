@@ -1,10 +1,4 @@
-import { StoreWithEventEnhancer } from "../lib/redux-effects/types"
-import { EffectContext } from "../types"
+import { registerReduxEffect } from "../lib/redux-effects"
+import sendMetricOnElementClick from "./sendMetricOnElementClick"
 
-import { default as sendMetricOnElementClick } from "./sendMetricOnElementClick"
-
-export function registerGlobalEffects(
-  store: StoreWithEventEnhancer<EffectContext>
-) {
-  store.registerEffect(sendMetricOnElementClick)
-}
+registerReduxEffect(sendMetricOnElementClick)
