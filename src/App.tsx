@@ -1,13 +1,12 @@
 import React from "react"
 import logo from "./logo.svg"
 import "./App.css"
-import useReduxEvent from "./lib/redux-events/hook"
-import { sendClickMetric } from "./eventHandlers"
 import { useDispatch } from "react-redux"
 import { elementClicked } from "./redux/actions"
+import { useGlobalEffects } from "./effects"
 
 function App() {
-  useReduxEvent(elementClicked.type, sendClickMetric)
+  useGlobalEffects()
   const dispatch = useDispatch()
 
   return (

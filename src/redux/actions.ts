@@ -6,3 +6,8 @@ export function elementClicked(element: any) {
 }
 
 elementClicked.type = "elementClicked"
+
+export interface ElementClickedAction {
+  type: "elementClicked"
+  payload: { element: HTMLElement }
+}

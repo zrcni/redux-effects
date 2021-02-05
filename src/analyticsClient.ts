@@ -1,5 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 
+import { AnalyticsClient } from "./types"
+
 export default {
   // just pretend this sends events to a server, okay?
   click(element: any) {
@@ -7,4 +9,4 @@ export default {
 
     console.log(`${element.nodeName.toLowerCase()} ${element.id} was clicked`)
   },
-}
+} as AnalyticsClient
