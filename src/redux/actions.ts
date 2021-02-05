@@ -1,4 +1,4 @@
-export function elementClicked(element: any) {
+export function elementClicked(element: HTMLElement) {
   return {
     type: "elementClicked",
     payload: { element },
