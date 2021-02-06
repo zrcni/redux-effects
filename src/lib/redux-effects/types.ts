@@ -1,5 +1,5 @@
 import { Action, AnyAction, Store } from "redux"
-import { RegisterReduxEffect } from "./EffectHandler"
+import { registerReduxEffect } from "./EffectHandler"
 
 export type ReduxEffectCallback<
   S = {},
@@ -13,21 +13,23 @@ export interface ReduxEffect<
   C extends Record<string, any> = {}
 > {
   type: string
-  callback: ReduxEffectCallback<S, A, C & ReduxEffectContext<S>>
+  callback: ReduxEffectCallback<S, A, C>
 }
 
 export interface EventEnhancerStoreExt<
   S = {},
+  A extends Action = AnyAction,
   C extends Record<string, any> = {}
 > {
-  registerEffect: RegisterReduxEffect<S, any, C>
+  registerEffect: typeof registerReduxEffect
 }
 
 export interface StoreWithEventEnhancer<
   S = {},
+  A extends Action = AnyAction,
   C extends Record<string, any> = {}
 > extends Store,
-    EventEnhancerStoreExt<S, C> {}
+    EventEnhancerStoreExt<S, A, C> {}
 
 export interface ReduxEffectContext<S> {
   getState(): S

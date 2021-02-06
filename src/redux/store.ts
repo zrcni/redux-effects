@@ -4,7 +4,7 @@ import { EffectContextArgument, ReduxState } from "../types"
 import { createReducer } from "./reducer"
 
 export function createStore(
-  initialState: ReduxState | undefined,
+  initialState: ReduxState,
   context: EffectContextArgument
 ) {
   const _compose: typeof compose =
@@ -13,6 +13,8 @@ export function createStore(
   return createReduxStore(
     createReducer(),
     initialState,
-    _compose(createReduxEffectEnhancer(context))
+    _compose(
+      createReduxEffectEnhancer<ReduxState, any, EffectContextArgument>(context)
+    )
   )
 }

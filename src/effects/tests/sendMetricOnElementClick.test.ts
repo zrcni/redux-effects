@@ -7,7 +7,7 @@ describe("sendMetricOnElementClick", () => {
     const analyticsClient = {
       click: jest.fn(),
     }
-    const store = createStore(undefined, { analyticsClient })
+    const store = createStore(undefined as any, { analyticsClient })
 
     store.registerEffect(sendMetricOnElementClick)
 

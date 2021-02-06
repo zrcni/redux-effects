@@ -9,11 +9,6 @@ export interface EffectContextArgument {
   analyticsClient: AnalyticsClient
 }
 
-export interface EffectContext<S = {}> extends EffectContextArgument {
-  getState(): S
-  dispatch(action: AnyAction): void
-}
-
 export interface ReduxState {
   inputText: string
 }
@@ -21,5 +16,5 @@ export interface ReduxState {
 export type MyReduxEffect<A extends Action = AnyAction> = ReduxEffect<
   ReduxState,
   A,
-  EffectContext
+  EffectContextArgument
 >

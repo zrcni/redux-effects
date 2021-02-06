@@ -1,10 +1,12 @@
-import { AnyAction, StoreEnhancer } from "redux"
+import { Action, AnyAction, StoreEnhancer } from "redux"
 import { EffectHandler } from "./EffectHandler"
 import { EventEnhancerStoreExt } from "./types"
 
-export function createEnhancer<S = {}, C extends Record<string, any> = {}>(
-  context: C
-): StoreEnhancer<EventEnhancerStoreExt<S, C>> {
+export function createEnhancer<
+  S = {},
+  A extends Action = AnyAction,
+  C extends Record<string, any> = {}
+>(context: C): StoreEnhancer<EventEnhancerStoreExt<S, A, C>> {
   return (createStore: any) => (...args: any[]) => {
     const store = createStore(...args)
 

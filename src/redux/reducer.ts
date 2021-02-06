@@ -1,9 +1,10 @@
 import { AnyAction, Reducer } from "redux"
 import { ReduxState } from "../types"
 import { updateInputText, UpdateInputTextAction } from "./actions"
+import { createDefaultState } from "./defaultState"
 
-export function createReducer(): Reducer<ReduxState | undefined, AnyAction> {
-  return (state, action) => {
+export function createReducer(): Reducer<ReduxState, AnyAction> {
+  return (state = createDefaultState(), action) => {
     switch (action.type) {
       case updateInputText.type:
         return {

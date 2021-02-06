@@ -1,20 +1,9 @@
 import { nanoid } from "nanoid"
 import { Action, AnyAction, Store } from "redux"
-import { ReduxEffect, ReduxEffectCallback, ReduxEffectContext } from "./types"
+import { ReduxEffect, ReduxEffectCallback } from "./types"
 import { createReduxEffect } from "./utils"
 
 const effectMap: EffectMap = {}
-
-export interface RegisterReduxEffect<
-  S = {},
-  A extends Action = AnyAction,
-  C extends Record<string, any> = {}
-> {
-  (
-    actionTypeOrEffect: string | ReduxEffect<S, A, C>,
-    callback?: ReduxEffectCallback<S, A, C>
-  ): () => void
-}
 
 export function registerReduxEffect<
   S = {},
@@ -53,11 +42,8 @@ export class EffectHandler<S = {}, C extends Record<string, any> = {}> {
     if (!effectMap[action.type]) return
 
     for (const id in effectMap[action.type]) {
-      const callback: ReduxEffectCallback<
-        S,
-        AnyAction,
-        C & ReduxEffectContext<S>
-      > = effectMap[action.type][id]
+      const callback: ReduxEffectCallback<S, AnyAction, C> =
+        effectMap[action.type][id]
 
       callback(action, {
         ...this.context,
