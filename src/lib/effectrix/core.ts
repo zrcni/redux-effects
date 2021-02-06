@@ -93,6 +93,9 @@ export function registerStateEvent<A extends Action = any, S = any>(
 }
 
 export class Store<S = any, C = any> {
+  private dispatching: boolean = false
+  private dispatchQueue: Action[] = []
+
   constructor() {
     storeContext.state = {}
   }
@@ -101,7 +104,7 @@ export class Store<S = any, C = any> {
     return cloneDeep(storeContext.state)
   }
 
-  updateSubscriptions() {
+  private updateSubscriptions() {
     const state = this.getState()
 
     for (const id in storeContext.subscriptions) {
@@ -119,11 +122,24 @@ export class Store<S = any, C = any> {
     }
   }
 
-  // TODO: queue dispatches
   dispatch = (action: Action) => {
     if (!isAction(action)) {
       throw new Error("An action must have property 'type'")
     }
+    this.queueDispatch(action)
+  }
+
+  private queueDispatch = (action: Action) => {
+    if (this.dispatching) {
+      this.dispatchQueue.push(action)
+    } else {
+      this._dispatch(action)
+    }
+  }
+
+  private _dispatch = (action: Action) => {
+    this.dispatching = true
+
     let stateUpdated = false
 
     for (const id in storeContext.stateEventHandlers[action.type]) {
@@ -161,6 +177,13 @@ export class Store<S = any, C = any> {
           }
         }
       }
+    }
+
+    this.dispatching = false
+
+    const nextAction = this.dispatchQueue.shift()
+    if (nextAction) {
+      this._dispatch(nextAction)
     }
   }
 
