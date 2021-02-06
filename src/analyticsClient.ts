@@ -4,9 +4,11 @@ import { AnalyticsClient } from "./types"
 
 export default {
   // just pretend this sends events to a server, okay?
-  click(element: any) {
+  click(userId: string, element: HTMLElement) {
     if (!element.id) return
 
-    console.log(`${element.nodeName.toLowerCase()} ${element.id} was clicked`)
+    console.log(
+      `${element.nodeName.toLowerCase()} ${element.id} was clicked by ${userId}`
+    )
   },
 } as AnalyticsClient

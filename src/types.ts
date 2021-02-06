@@ -2,7 +2,7 @@ import { Action, AnyAction } from "redux"
 import { ReduxEffect } from "./lib/redux-effects/types"
 
 export interface AnalyticsClient {
-  click(element: HTMLElement): void
+  click(userId: string, element: HTMLElement): void
 }
 
 export interface EffectContextArgument {
@@ -10,6 +10,7 @@ export interface EffectContextArgument {
 }
 
 export interface ReduxState {
+  userId: string
   inputText: string
 }
 

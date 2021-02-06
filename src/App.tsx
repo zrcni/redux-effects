@@ -3,10 +3,10 @@ import logo from "./logo.svg"
 import "./App.css"
 import { useDispatch, useSelector } from "react-redux"
 import { clickElement, updateInputText } from "./redux/actions"
-import { ReduxState } from "./types"
+import { selectUserId } from "./redux/selectors"
 
 function App() {
-  const inputText = useSelector<ReduxState, string>((store) => store.inputText)
+  const inputText = useSelector(selectUserId)
   const dispatch = useDispatch()
 
   function onClick(e: any) {
