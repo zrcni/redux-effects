@@ -1,1 +1,1 @@
-import "../lib/effectrix/effects/localStorage"
+import "../lib/effectrix/effects/setLocalStorage"

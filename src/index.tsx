@@ -7,8 +7,11 @@ import "./effects"
 import "./events"
 import { createStore } from "./store"
 import { EffectrixProvider } from "./lib/effectrix/react"
+import { initializeState } from "./actions"
 
 const store = createStore()
+
+store.dispatch(initializeState())
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,8 +1,8 @@
 import cloneDeep from "lodash.clonedeep"
 import { nanoid } from "nanoid"
 
-export function createStore<S = any, C = any>(defaultState = {}) {
-  return new Store<S, C>(defaultState as any)
+export function createStore<S = any, C = any>() {
+  return new Store<S, C>()
 }
 
 let storeContext: any = {
@@ -14,10 +14,6 @@ let storeContext: any = {
   stateEventHandlers: {},
   subscriptions: {},
   prevCoeffects: {},
-}
-
-function resetStoreState(defaultState?: any): any {
-  storeContext.state = defaultState
 }
 
 export function registerCoeffect(key: string, valueOrFn: any) {
@@ -56,7 +52,7 @@ export function unregisterEffects() {
 }
 
 export interface EffectEventCallback<A = Action, C = any> {
-  (coeffects: C, action: A): C
+  (coeffects: C, action: A): Partial<C> | void
 }
 
 export function registerEffectEvent<A = Action, C = any>(
@@ -94,10 +90,6 @@ export function registerStateEvent<A extends Action = any, S = any>(
 }
 
 export class Store<S = any, C = any> {
-  constructor(defaultValue: S) {
-    resetStoreState(defaultValue)
-  }
-
   getState = (): S => {
     return cloneDeep(storeContext.state)
   }
