@@ -1,4 +1,4 @@
-I wanted to experiment with creating something simpler than Redux Saga and Redux Observables that could execute side effects from dispatched actions. It's obviously much less flexible than the previously mentioned libraries.
+I wanted to experiment with creating something simpler than Redux Saga and Redux Observables that could execute side effects from dispatched actions. It's obviously much less flexible than the previously mentioned libraries. They're great for complex flows and long running processes.
 
 I also ended up creating basically a JavaScript [re-frame](https://github.com/day8/re-frame) in [another branch](https://github.com/zrcni/redux-effects/tree/effectrix).
 
