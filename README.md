@@ -1,4 +1,6 @@
-I wanted something simpler than Redux Saga and Redux Observables that could execute side effects from dispatched actions.
+I wanted to experiment with creating something simpler than Redux Saga and Redux Observables that could execute side effects from dispatched actions. It's obviously much less flexible than the previously mentioned libraries.
+
+I also ended up creating basically a JavaScript [re-frame](https://github.com/day8/re-frame) in another branch.
 
 The library code is in [src/lib/redux-effects](./src/lib/redux-effects)
 
