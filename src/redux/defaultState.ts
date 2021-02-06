@@ -1,4 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
-export default {
-  inputText: localStorage.getItem("input-text") || "",
+export function createDefaultState() {
+  return {
+    inputText: localStorage.getItem("input-text") || "",
+  }
 }
