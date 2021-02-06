@@ -5,6 +5,17 @@ import { createReduxEffect } from "./utils"
 
 const effectMap: EffectMap = {}
 
+export interface RegisterReduxEffect<
+  S = {},
+  A extends Action = AnyAction,
+  C extends Record<string, any> = {}
+> {
+  (
+    actionTypeOrEffect: string | ReduxEffect<S, A, C>,
+    callback?: ReduxEffectCallback<S, A, C>
+  ): () => void
+}
+
 export function registerReduxEffect<
   S = {},
   A extends Action = AnyAction,
@@ -12,7 +23,7 @@ export function registerReduxEffect<
 >(
   actionTypeOrEffect: string | ReduxEffect<S, A, C>,
   callback?: ReduxEffectCallback<S, A, C>
-) {
+): () => void {
   const effect = createReduxEffect<S, A, C>(actionTypeOrEffect, callback)
 
   if (!effectMap[effect.type]) {

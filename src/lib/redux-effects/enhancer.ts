@@ -4,7 +4,7 @@ import { EventEnhancerStoreExt } from "./types"
 
 export function createEnhancer<S = {}, C extends Record<string, any> = {}>(
   context: C
-): StoreEnhancer<EventEnhancerStoreExt<C>> {
+): StoreEnhancer<EventEnhancerStoreExt<S, C>> {
   return (createStore: any) => (...args: any[]) => {
     const store = createStore(...args)
 
