@@ -1,4 +1,4 @@
-import { Action } from "redux"
+import { Action } from "../lib/effectrix"
 
 export function clickElement(element: HTMLElement): ClickElementAction {
   return {

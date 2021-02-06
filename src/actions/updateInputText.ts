@@ -1,4 +1,4 @@
-import { Action } from "redux"
+import { Action } from "../lib/effectrix"
 
 export function updateInputText(value: string): UpdateInputTextAction {
   return {

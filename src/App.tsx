@@ -1,12 +1,12 @@
 import React from "react"
 import logo from "./logo.svg"
 import "./App.css"
-import { useDispatch, useSelector } from "react-redux"
-import { clickElement, updateInputText } from "./redux/actions"
-import { ReduxState } from "./types"
+import { useSelector, useDispatch } from "./lib/effectrix/react"
+import { clickElement, updateInputText } from "./actions"
+import { selectInputText } from "./selectors"
 
 function App() {
-  const inputText = useSelector<ReduxState, string>((store) => store.inputText)
+  const inputText = useSelector(selectInputText)
   const dispatch = useDispatch()
 
   function onClick(e: any) {
