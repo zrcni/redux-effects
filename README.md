@@ -18,7 +18,7 @@ const effect = createReduxEffect("someAction", (action, context) => {
   context.someDependency.doSomething(action.payload)
 })
 
-// Effects can be registered by calling registerEffect
+// Effects can be registered by calling registerEffect.
 // They can be registered before the store has been created.
 registerReduxEffect(effect)
 
@@ -29,7 +29,8 @@ registerReduxEffect("someAction", callback)
 ```
 
 ```js
-// There's also a React hook
+// There's also a React hook for effects that
+// are only active while a component is rendered
 useReduxEffect(effect)
 
 // and a higher order component
