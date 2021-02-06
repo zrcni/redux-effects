@@ -1,5 +1,7 @@
-import { GetLocalStorageCoeffect } from "./lib/effectrix/coeffects/getLocalStorage"
-import { StateCoeffect } from "./lib/effectrix/coeffects/state"
+import {
+  GetLocalStorageCoeffect,
+  StateCoeffect,
+} from "./lib/effectrix/coeffects/types"
 
 export interface AnalyticsClient {
   click(element: HTMLElement): void

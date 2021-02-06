@@ -16,8 +16,11 @@ let storeContext: any = {
   prevCoeffects: {},
 }
 
-export function registerCoeffect(key: string, valueOrFn: any) {
-  storeContext.coeffectHandlers[key] = valueOrFn
+export function registerCoeffect<C = any, V = any>(
+  key: string,
+  handler: (coeffects: C) => V
+) {
+  storeContext.coeffectHandlers[key] = handler
 }
 
 export function unregisterCoeffect(key: string) {
@@ -90,6 +93,10 @@ export function registerStateEvent<A extends Action = any, S = any>(
 }
 
 export class Store<S = any, C = any> {
+  constructor() {
+    storeContext.state = {}
+  }
+
   getState = (): S => {
     return cloneDeep(storeContext.state)
   }
@@ -140,7 +147,9 @@ export class Store<S = any, C = any> {
       const handler = storeContext.effectEventHandlers[action.type][id]
       const effects = handler(this.getCoeffects(), action)
       for (const key in effects || {}) {
-        if (key in storeContext.effectHandlers) {
+        if (key === "state") {
+          storeContext.state = cloneDeep(effects[key])
+        } else if (key in storeContext.effectHandlers) {
           const handler = storeContext.effectHandlers[key]
           const args = effects[key]
           const updatedCoeffects = handler(...args)
@@ -158,11 +167,8 @@ export class Store<S = any, C = any> {
   getCoeffects = (): C & { state: S } => {
     let coeffects: any = {}
     for (const key in storeContext.coeffectHandlers) {
-      const valueOrFn = storeContext.coeffectHandlers[key]
-      coeffects[key] =
-        typeof valueOrFn === "function"
-          ? valueOrFn(storeContext.prevCoeffects)
-          : valueOrFn
+      const handler = storeContext.coeffectHandlers[key]
+      coeffects[key] = handler()
     }
     coeffects.state = this.getState()
     storeContext.prevCoeffects = coeffects

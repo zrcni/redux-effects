@@ -2,6 +2,7 @@ import { registerEffectEvent } from "../lib/effectrix"
 import { InitializeStateAction } from "../actions"
 import { Coeffects } from "../types"
 import { initializeState } from "../actions/initializeState"
+import "../lib/effectrix/coeffects/getLocalStorage"
 
 const defaultState = {
   inputText: "",

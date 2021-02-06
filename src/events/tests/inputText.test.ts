@@ -2,7 +2,9 @@ import { registerEffect, unregisterEffects } from "../../lib/effectrix"
 import { createStore } from "../../store"
 import { updateInputText } from "../../actions"
 import { selectInputText } from "../../selectors"
+import "../../coeffects"
 import "../inputText"
+import "../initializeState"
 
 describe("inputText", () => {
   afterEach(() => {
@@ -18,14 +20,14 @@ describe("inputText", () => {
   })
 
   it("updateInputText persists its value in local storage", () => {
+    registerEffect<[string, string]>("setLocalStorage", (key, value) => {
+      window.localStorage.setItem(key, value)
+    })
+
     const store = createStore()
     const value = "this is text"
-
-    const mockFn = jest.fn()
-    registerEffect("setLocalStorage", mockFn)
-
     store.dispatch(updateInputText(value))
-    expect(mockFn).toHaveBeenCalledWith("input-text", value)
+    expect(window.localStorage.getItem("input-text")).toBe(value)
   })
 
   it("updateInputText's value is taken from localStorage upon initialization", () => {

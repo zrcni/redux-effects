@@ -13,7 +13,7 @@ describe("sendMetricOnElementClick", () => {
 
     const store = createStore()
 
-    registerCoeffect("analyticsClient", analyticsClient)
+    registerCoeffect("analyticsClient", () => analyticsClient)
 
     const element = document.createElement("button")
     store.dispatch(clickElement(element))
