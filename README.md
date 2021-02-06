@@ -1,5 +1,7 @@
 I wanted something simpler than Redux Saga and Redux Observables that could execute side effects from dispatched actions.
 
+The library code is in [src/lib/redux-effects](./src/lib/redux-effects)
+
 ```js
 // dependencies can be provided to the enhancer when the Redux store is created
 createStore(
