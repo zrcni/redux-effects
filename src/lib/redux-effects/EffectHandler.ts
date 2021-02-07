@@ -56,6 +56,6 @@ export class EffectHandler<S = {}, C extends Record<string, any> = {}> {
 
 interface EffectMap {
   [type: string]: {
-    [id: string]: ReduxEffectCallback
+    [id: string]: ReduxEffectCallback<any, any, any>
   }
 }
